@@ -1,0 +1,41 @@
+.header-botones{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.header-botones button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    font-size: clamp(1rem, 2vw, 24px);
+}
+
+.header-botones .button{
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 10px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    width:  45%;
+    height: 80%;
+    cursor: pointer;
+}
+
+.header-botones .button:hover{
+    border: 2px solid white;
+}
+
+.header-botones .regresar{
+    background-color: rgba(66, 0, 51, 0.7333);
+}
+
+.header-botones .continuar{
+    background-color: #262C3B;
+}

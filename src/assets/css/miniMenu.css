@@ -1,0 +1,51 @@
+.mini-menu{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu{
+    cursor: pointer;
+    z-index: 12;
+    transition: all 0.2s ease-in-out;
+}
+
+.open{
+    transform: rotate(90deg);
+    transition: all 0.2s ease-in-out   ;
+}
+
+.menu-options{
+    position: absolute;
+    top: 5px;
+    left: 46px;
+    width: 500px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 11;
+    background-color: #000022;
+    border-radius: 10px;
+}
+
+.menu-options button{
+    height: 60px;
+   width: 350px;
+   margin-bottom: 20px;
+   background-color: #262C3B;
+   border-radius: 10px;
+   font-size: 1.4rem;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5rem;
+    margin: 0;
+    padding: 0;
+}
