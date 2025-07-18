@@ -1,5 +1,7 @@
+import js from "@eslint/js";
+
 const useFunciones = () => {
-    const getAllFunciones = async () => {
+        const getAllFunciones = async () => {
         try {
             const response = await fetch("http://localhost:8080/api/funciones",{
                 method: "GET",
@@ -46,7 +48,40 @@ const useFunciones = () => {
         }
     };
 
-    return { getAllFunciones, buscarFuncionesPorFecha, buscarFuncionesPorTitulo };
+    const obtenerDetalleFuncion = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/funciones/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const actualizarFuncion = async (id, funcion) => {
+        console.log(funcion)
+        try {
+            const response = await fetch(`http://localhost:8080/api/funciones/actualizar/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(funcion) ,
+            });
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    return { getAllFunciones, buscarFuncionesPorFecha, buscarFuncionesPorTitulo, obtenerDetalleFuncion,actualizarFuncion };
 };
 
 export default useFunciones;

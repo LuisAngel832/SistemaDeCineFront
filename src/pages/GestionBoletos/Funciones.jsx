@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
 import useFunciones from "../../hooks/useFunciones";
-import { X, Search, Calendar } from "lucide-react";
-import Calendario from "../../components/Calendario";
-const Funciones = () => {
-  const [funciones, setFunciones] = useState([]);
+import PropTypes from "prop-types";
+import BusquedaFunciones from "./BusquedaFunciones";
+
+const Funciones = ({funciones, setFunciones, setFuncion, funcion,setCompraBody, compraBody}) => {
   const [openCalendario, setOpenCalendario] = useState(false);
   const [useSearchTitle, setUseSearchTitle] = useState(false);
 
-  const { getAllFunciones, buscarFuncionesPorTitulo } = useFunciones();
+  const { getAllFunciones, buscarFuncionesPorTitulo, obtenerDetalleFuncion} = useFunciones();
 
   const activeSearch = () => {
     setUseSearchTitle(!useSearchTitle);
   };
+
+  const esperarFuncion = async (id) => {
+    const f = await obtenerDetalleFuncion(id);
+    setFuncion(f)
+    setCompraBody({...compraBody, funcionId: f.id})
+  }
 
   const closeCalendar=()=>{
     setOpenCalendario(false)
@@ -27,6 +33,10 @@ const Funciones = () => {
     setFunciones(await buscarFuncionesPorTitulo(e.target.value));
   };
 
+  useEffect(() =>{
+    setCompraBody({...compraBody, funcionId: funcion.id})
+  }, [funcion])
+
   useEffect(() => {
     const fetchFunciones = async () => {
       const f = await getAllFunciones();
@@ -37,43 +47,15 @@ const Funciones = () => {
 
   return (
     <div className="funciones-content">
-      <div className="header-table-funciones">
-        {useSearchTitle ? (
-          <form onSubmit={activeSearch} className="busqueda">
-            <input
-              type="text"
-              placeholder="Buscar por titulo"
-              onChange={handleChangeTitle}
-            />
-            <button onSubmit={handleSubmit} className="search-button">
-              <X  />
-            </button>
-          </form>
-        ) : (
-          <button
-            onClick={activeSearch}
-            className={useSearchTitle ? "active" : ""}
-          >
-            {" "}
-            <Search />
-            Titulo
-          </button>
-        )}
-
-        {useSearchTitle ? (
-          <></>
-        ) : (
-          <button
-            type="calendar"
-            onClick={() => setOpenCalendario(!openCalendario)}
-          >
-            {" "}
-            {openCalendario ? <X /> : <><Calendar />Fecha</>}
-            
-          </button>
-        )}
-        {openCalendario === true && useSearchTitle === false && <Calendario closeCalendario={closeCalendar} setFunciones={setFunciones} />}
-      </div>
+      <BusquedaFunciones
+        useSearchTitle={useSearchTitle}
+        openCalendario={openCalendario}
+        setOpenCalendario={setOpenCalendario}
+        closeCalendar={closeCalendar}
+        activeSearch={activeSearch}
+        handleSubmit={handleSubmit}
+        handleChangeTitle={handleChangeTitle}
+      />
       <table className="funciones-table">
         <thead>
           <tr>
@@ -92,6 +74,7 @@ const Funciones = () => {
             <tr
               key={funcion.id}
               className={`funcion ${index % 2 === 0 ? "even" : "odd"}`}
+              onClick={() => esperarFuncion(funcion.id)}
             >
               <td>{funcion.pelicula.titulo}</td>
               <td>
@@ -104,6 +87,15 @@ const Funciones = () => {
       </table>
     </div>
   );
+}
+
+Funciones.propTypes = {
+  funciones: PropTypes.array.isRequired,
+  setFunciones: PropTypes.func.isRequired,
+  setFuncion: PropTypes.func.isRequired,
+  funcion: PropTypes.object.isRequired,
+  setCompraBody: PropTypes.func.isRequired,
+  compraBody: PropTypes.object.isRequired,
 };
 
 export default Funciones;

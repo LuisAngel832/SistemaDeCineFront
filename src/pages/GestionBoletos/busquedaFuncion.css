@@ -1,0 +1,67 @@
+.header-table-funciones {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 5px 0;
+    height: 60px;
+    background-color: #001242;
+    border: none;
+}
+
+.header-table-funciones .active {
+    width: 90%;
+}
+
+.header-table-funciones .busqueda {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.header-table-funciones .busqueda input {
+    width: 80%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0;
+    background-color: #BFC1D0;
+    padding-left: 5px;
+    font-size: 16px;
+    color: black;
+}
+
+.header-table-funciones .busqueda .search-button {
+    border: none;
+    cursor: pointer;
+    height: 40px;
+    width: 10%;
+    font-size: clamp(1rem, 2vw, 24px);
+    background-color: rgb(117, 42, 42);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.header-table-funciones button {
+    border: none;
+    cursor: pointer;
+    height: 80%;
+    width: 30%;
+    font-size: clamp(1rem, 2vw, 24px);
+    background-color: #005E7C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 0;
+    padding: 0;
+}

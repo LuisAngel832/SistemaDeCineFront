@@ -1,5 +1,5 @@
-.main-gestion-boletos{
-    width: 100% ;
+.main-gestion-boletos {
+    width: 100%;
     height: calc(100vh - 80px);
     display: flex;
     justify-content: center;
@@ -8,121 +8,53 @@
     padding: 0;
 }
 
-.funciones-content{
+.funciones-content {
     width: 45%;
     background-color: #20305A;
     border-radius: 20px;
     overflow: hidden;
+    margin: 0 2rem;
 }
 
-.funciones-table{
+.funciones-table {
     border: none;
     border-collapse: collapse;
     width: 100%;
 }
 
-.header-table-funciones{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0;
-    padding: 5px 0;
-    height: 60px;
-    background-color: #001242;
-    border: none;
-} 
-
-.header-table-funciones .active{
-    width: 90%;
-}
-
-.header-table-funciones .busqueda{
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-}
-
-.header-table-funciones .busqueda input{
-    width: 80%;
-    height: 40px;
-    border: none;
-    border-radius: 5px;
-    margin: 0;
-    padding: 0;
-    background-color: #BFC1D0;
-    padding-left: 5px;
-    font-size: 16px;
-    color: black;
-}
-
-.header-table-funciones .busqueda .search-button{
-    border: none;
-    cursor: pointer;
-    height: 40px;
-    width: 10%;
-    font-size: clamp(1rem, 2vw, 24px);
-    background-color: rgb(117, 42, 42);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    margin: 0;
-    padding: 0;
-}
-
-.header-table-funciones button{
-    border: none;
-    cursor: pointer;
-    height: 80%;
-    width: 30%;
-    font-size: clamp(1rem, 2vw, 24px);
-    background-color: #005E7C;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    margin: 0;
-    padding: 0;
-}
-
-.funciones-table .funcion{
+.funciones-table .funcion {
     cursor: pointer;
     margin: 0;
     padding: 0;
 }
 
-.funciones-table .funcion:hover{
+.funciones-table .funcion:hover {
     background-color: #BFC1D0;
     color: black;
 }
 
-.funciones-table .even{
+.funciones-table .even {
     background-color: #404D71;
     border: none;
 }
 
-.funciones-table td{
+.funciones-table td {
     border: none;
     margin: 0;
     padding: 0;
     height: 60px;
     text-align: center;
-    
 }
 
-.funciones-table .odd{
+.funciones-table .odd {
     background-color: #606B89;
 }
 
-.cancel-button{
+.cancel-button {
     height: 80%;
 }
 
-.dias .dia p{
+.dias .dia p {
     width: 100%;
     height: 100%;
     display: flex;
@@ -130,40 +62,37 @@
     align-items: center;
 }
 
-
-
 /*--------------seleccion de asientos --------------*/
 
-.header-asientos{
+.header-asientos {
     width: 100%;
     display: flex;
     justify-content: space-around;
     font-size: 1.2rem;
 }
 
-.header-asientos div{
+.header-asientos div {
     width: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.header-asientos div p{
+.header-asientos div p {
     text-align: center;
     margin: 0;
     padding: 0;
 }
 
-
-.header-asientos div .valor{
-    font-size: 3rem;    
+.header-asientos div .valor {
+    font-size: 3rem;
 }
 
-.header-asientos div p span{
+.header-asientos div p span {
     font-size: 2rem;
 }
 
-.seleccionarAsientos-contenido{
+.seleccionarAsientos-contenido {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -171,11 +100,11 @@
     flex-direction: column;
 }
 
-.img-pantalla{
+.img-pantalla {
     max-width: 90%;
 }
 
-.asientos{
+.asientos {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -184,7 +113,7 @@
     padding: 0;
 }
 
-.asientos .filas{
+.asientos .filas {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -194,7 +123,7 @@
     text-align: center;
 }
 
-.asientos .filas p{
+.asientos .filas p {
     width: 10%;
     height: 50px;
     margin: 0;
@@ -204,7 +133,7 @@
     align-items: center;
 }
 
-.columnas-content{
+.columnas-content {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -212,7 +141,7 @@
     padding: 0;
 }
 
-.columnas{
+.columnas {
     width: 50px;
     height: 100%;
     display: flex;
@@ -221,8 +150,8 @@
     padding: 0;
 }
 
-.columnas p{
-    width:50px ;
+.columnas p {
+    width: 50px;
     height: 50px;
     margin: 0;
     padding: 0;
@@ -232,7 +161,7 @@
     align-items: center;
 }
 
-.asientos-icon{
+.asientos-icon {
     display: grid;
     grid-template-columns: repeat(11, 9%);
     grid-template-rows: repeat(8, 50px);
@@ -242,12 +171,11 @@
     align-content: center;
     justify-items: center;
     width: 100%;
-    height: 100%;   
+    height: 100%;
 }
 
-.asientos-icon .asiento{
+.asientos-icon .asiento {
     width: 10%;
-    height: 50px;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -255,4 +183,8 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+.ocupado {
+    cursor: not-allowed;
 }
