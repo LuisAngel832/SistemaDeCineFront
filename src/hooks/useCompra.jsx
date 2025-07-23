@@ -1,8 +1,8 @@
 const useCompra = () => {
   const registrarCompra = async (compra) => {
-    console.log(compra);
+    const ruta = "http://192.168.100.52:8080/api";
     try {
-      const response = await fetch("http://localhost:8080/api/compra", {
+      const response = await fetch(`${ruta}/compra`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

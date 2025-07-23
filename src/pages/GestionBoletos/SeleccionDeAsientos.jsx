@@ -1,136 +1,125 @@
-import pantalla from "./../../assets/img/pantalla.png";
-import asiento from "./../../assets/img/asiento.png";
-import asientoSeleccionado from "./../../assets/img/asientoSeleccionado.png";
-import asientoOcupado from "./../../assets/img/asientoOcupado.png";
+import React, { useState, useEffect, useMemo } from "react";
 import HeaderSeleccionDeAsientos from "./HeaderSeleccionAsientos";
-import { useEffect, useState } from "react";
-const SeleccionDeAsientos = ({ funcion, setCompraBody, compraBody, asientosOcupados, setAsientosOcupados  }) => {
+import pantalla from "../../assets/img/pantalla.png";
+import asiento from "../../assets/img/asiento.png"; 
+import asientoOcupado from "../../assets/img/asientoOcupado.png";
+import asientoSeleccionado from "../../assets/img/asientoSeleccionado.png";
+
+const SeleccionDeAsientos = ({
+  funcion,
+  setCompraBody,
+  compraBody,
+  asientosOcupados,
+  setAsientosOcupados,
+  compraRealizada,
+}) => {
   const filas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-  const columnas = ["A ", "B ", "C ", "D ", "E ", "F ", "G ", "H "];
-  const [cantidadAsientos, setCantidadAsientos] = useState(0);
-  const [precioTotal, setPrecioTotal] = useState(0);
+  const columnas = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const [asientosSeleccionados, setAsientosSeleccionados] = useState([]);
 
   useEffect(() => {
-    setAsientosOcupados(funcion.boletosVendidos?.map((b) => b.codigoAsiento));
-    setPrecioTotal(0);
-    setCantidadAsientos(0);
+    setAsientosOcupados(
+      funcion.boletosVendidos?.map((b) => b.codigoAsiento) || []
+    );
     setAsientosSeleccionados([]);
-  }, [funcion]);
-
-  useEffect(() => {
-    setCompraBody({
-      ...compraBody,
-      boletos: asientosSeleccionados,
-      monto: precioTotal,
-    });
-  }, [asientosSeleccionados]);
+    setCompraBody({ ...compraBody, boletos: [], monto: 0 });
+  }, [funcion, compraRealizada]);
 
   const handleClickAsiento = (id) => {
-    let nuevosAsientos;
+    if (asientosOcupados.includes(id)) return;
 
-    if (asientosOcupados.includes(id) || asientosSeleccionados.includes(id)) {
-      nuevosAsientos = asientosSeleccionados.filter(
-        (asiento) => asiento !== id
-      );
+    let nuevosAsientos;
+    if (asientosSeleccionados.includes(id)) {
+      nuevosAsientos = asientosSeleccionados.filter((a) => a !== id);
     } else {
       nuevosAsientos = [...asientosSeleccionados, id];
-      const nuevoPrecioTotal = funcion.precioBoleto * nuevosAsientos.length;
-
-      setCantidadAsientos(cantidadAsientos + 1);
-      setAsientosSeleccionados(nuevosAsientos);
-      setPrecioTotal(nuevoPrecioTotal);
-
-      setCompraBody({
-        ...compraBody,
-        boletos: nuevosAsientos,
-        monto: nuevoPrecioTotal,
-      });
     }
+
+    const nuevoMonto = nuevosAsientos.length * (funcion.precioBoleto || 0);
+
+    setAsientosSeleccionados(nuevosAsientos);
+    setCompraBody({
+      ...compraBody,
+      boletos: nuevosAsientos,
+      monto: nuevoMonto,
+    });
   };
 
   return (
     <section className="funciones-content">
       {Object.keys(funcion).length > 0 ? (
         <>
-          {/* header de asientos */}
           <HeaderSeleccionDeAsientos
-            cantidadAsientos={cantidadAsientos}
-            precioTotal={precioTotal}
+            cantidadAsientos={asientosSeleccionados.length}
+            precioTotal={compraBody.monto}
           />
 
           <div className="seleccionarAsientos-contenido">
-            <img src={pantalla} alt="pantalla" className="img-pantalla" />
+            <img src={pantalla} alt="Pantalla" className="img-pantalla" />
 
             <div className="asientos">
               <div className="filas">
                 <p> </p>
-                {filas.map((fila) => {
-                  return <p key={fila}>{fila}</p>;
-                })}
+                {filas.map((fila) => (
+                  <p key={fila}>{fila}</p>
+                ))}
               </div>
 
               <div className="columnas-content">
                 <div className="columnas">
-                  {columnas.map((columna) => {
-                    return <p key={columna}>{columna}</p>;
-                  })}
+                  {columnas.map((columna) => (
+                    <p key={columna}>{columna}</p>
+                  ))}
                 </div>
 
-                {asientosOcupados ? (
-                  <div className="asientos-icon">
-                    {columnas?.map((columna) => {
-                      return filas.map((fila) => {
-                        const asientoId = `${fila}${columna.trim()}`;
-                        let asientoImgSrc;
-                        if (asientosOcupados?.includes(asientoId)) {
-                          asientoImgSrc = asientoOcupado;
-                        } else if (asientosSeleccionados.includes(asientoId)) {
-                          asientoImgSrc = asientoSeleccionado;
-                        } else {
-                          asientoImgSrc = asiento;
-                        }
-                        return (
-                          <button
-                            type="button"
-                            className={`asiento ${
-                              asientoImgSrc === asientoOcupado ? "ocupado" : ""
-                            }`}
-                            onClick={() => handleClickAsiento(asientoId)}
-                            key={asientoId}
-                            style={{
-                              background: "none",
-                              border: "none",
-                              padding: 0,
-                            }}
-                            aria-label={`Seleccionar asiento ${columna.trim()}${fila}`}
-                          >
-                            <img
-                              className={`${
-                                asientoImgSrc === asientoOcupado
-                                  ? "ocupado"
-                                  : ""
-                              }`}
-                              src={asientoImgSrc}
-                              alt=""
-                            />
-                          </button>
-                        );
-                      });
-                    })}
-                  </div>
-                ) : (
-                  <p>Selecciona una funcion</p>
-                )}
+                <div className="asientos-icon">
+                  {columnas.map((columna) =>
+                    filas.map((fila) => {
+                      const id = `${fila}${columna}`;
+                      const ocupado = asientosOcupados.includes(id);
+                      const seleccionado = asientosSeleccionados.includes(id);
+                      const imgSrc = ocupado
+                        ? asientoOcupado
+                        : seleccionado
+                        ? asientoSeleccionado
+                        : asiento;
+                      const altText = ocupado
+                        ? "Asiento ocupado"
+                        : seleccionado
+                        ? "Asiento seleccionado"
+                        : "Asiento libre";
+
+                      return (
+                        <button
+                          key={id}
+                          type="button"
+                          className={`asiento ${ocupado ? "ocupado" : ""}`}
+                          onClick={() => handleClickAsiento(id)}
+                          disabled={ocupado}
+                          aria-label={`Asiento ${id} ${altText}`}
+                          style={{
+                            background: "none",
+                            border: "none",
+                            padding: 0,
+                            cursor: ocupado ? "not-allowed" : "pointer",
+                          }}
+                        >
+                          <img src={imgSrc} alt={altText} />
+                        </button>
+                      );
+                    })
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </>
       ) : (
-        <p> Selecciona una funcion</p>
+        <p>Selecciona una función para ver los asientos disponibles</p>
       )}
     </section>
   );
 };
+
 
 export default SeleccionDeAsientos;

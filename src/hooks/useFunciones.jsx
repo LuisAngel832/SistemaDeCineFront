@@ -1,9 +1,10 @@
 import js from "@eslint/js";
 
 const useFunciones = () => {
+    const ruta = "http://192.168.100.52:8080/api";
         const getAllFunciones = async () => {
         try {
-            const response = await fetch("http://localhost:8080/api/funciones",{
+            const response = await fetch(`${ruta}/funciones`,{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -18,7 +19,7 @@ const useFunciones = () => {
 
    const buscarFuncionesPorTitulo = async (titulo) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/funciones/buscar?titulo=${titulo}`, {
+            const response = await fetch(`${ruta}/funciones/buscar?titulo=${titulo}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,7 +36,7 @@ const useFunciones = () => {
         const fechaFormateada = fecha.toISOString().split('T')[0];
 
         try {
-            const response = await fetch(`http://localhost:8080/api/funciones/buscar?fecha=${fechaFormateada}`, {
+            const response = await fetch(`${ruta}/funciones/buscar?fecha=${fechaFormateada}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -50,7 +51,7 @@ const useFunciones = () => {
 
     const obtenerDetalleFuncion = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/funciones/${id}`, {
+            const response = await fetch(`${ruta}/funciones/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -66,7 +67,7 @@ const useFunciones = () => {
     const actualizarFuncion = async (id, funcion) => {
         console.log(funcion)
         try {
-            const response = await fetch(`http://localhost:8080/api/funciones/actualizar/${id}`, {
+            const response = await fetch(`${ruta}/funciones/actualizar/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

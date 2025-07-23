@@ -1,15 +1,16 @@
 
 import Calendario from "../../components/Calendario";
-import {Calendar, X } from "lucide-react";
+import { Calendar, X } from "lucide-react";
 import PropTypes from "prop-types";
 
-const BotonCalendario = ({useSearchTitle, openCalendario, setOpenCalendario, closeCalendar, setFunciones}) => {
+const BotonCalendario = ({ useSearchTitle, openCalendario, setOpenCalendario, closeCalendar, setFunciones }) => {
   return (
-    <div>
+    <div className="boton-calendario">
       {useSearchTitle ? (
         <></>
       ) : (
         <button
+          className="calendario-button"
           type="calendar"
           onClick={() => setOpenCalendario(!openCalendario)}
         >

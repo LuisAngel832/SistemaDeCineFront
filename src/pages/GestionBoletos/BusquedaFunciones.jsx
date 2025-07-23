@@ -1,7 +1,7 @@
 import BotonCalendario from "./BotonCalendario";
 import { X, Search} from "lucide-react";
-import "busquedaFuncion.css"
-const BusquedaFunciones = ({useSearchTitle, openCalendario, setOpenCalendario, closeCalendar, activeSearch, handleSubmit, handleChangeTitle}) => {
+import  "./busquedaFuncion.css"
+const BusquedaFunciones = ({useSearchTitle, openCalendario, setOpenCalendario, closeCalendar, activeSearch, handleSubmit, handleChangeTitle, setFunciones}) => {
   return (
     <div className="header-table-funciones">
       {useSearchTitle ? (
@@ -31,6 +31,7 @@ const BusquedaFunciones = ({useSearchTitle, openCalendario, setOpenCalendario, c
         openCalendario={openCalendario}
         setOpenCalendario={setOpenCalendario}
         closeCalendar={closeCalendar}
+        setFunciones={setFunciones}
       />
       
     </div>

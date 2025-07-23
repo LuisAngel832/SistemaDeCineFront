@@ -3,91 +3,93 @@ import useFunciones from "../../hooks/useFunciones";
 import PropTypes from "prop-types";
 import BusquedaFunciones from "./BusquedaFunciones";
 
-const Funciones = ({funciones, setFunciones, setFuncion, funcion,setCompraBody, compraBody}) => {
+const Funciones = ({
+  funciones,
+  setFunciones,
+  setFuncion,
+  funcion,
+  setCompraBody,
+  compraBody,
+}) => {
   const [openCalendario, setOpenCalendario] = useState(false);
-  const [useSearchTitle, setUseSearchTitle] = useState(false);
+  const [busquedaActiva, setBusquedaActiva] = useState(false);
 
-  const { getAllFunciones, buscarFuncionesPorTitulo, obtenerDetalleFuncion} = useFunciones();
+  const {
+    getAllFunciones,
+    buscarFuncionesPorTitulo,
+    obtenerDetalleFuncion,
+  } = useFunciones();
 
-  const activeSearch = () => {
-    setUseSearchTitle(!useSearchTitle);
-  };
-
-  const esperarFuncion = async (id) => {
+  const handleSeleccionFuncion = async (id) => {
     const f = await obtenerDetalleFuncion(id);
-    setFuncion(f)
-    setCompraBody({...compraBody, funcionId: f.id})
-  }
-
-  const closeCalendar=()=>{
-    setOpenCalendario(false)
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setUseSearchTitle(false);
+    setFuncion(f);
+    setCompraBody({ ...compraBody, funcionId: f.id });
   };
 
-  const handleChangeTitle = async (e) => {
-    setFunciones(await buscarFuncionesPorTitulo(e.target.value));
+  const handleBuscarPorTitulo = async (e) => {
+    const query = e.target.value.trim();
+    if (query.length > 1) {
+      const resultados = await buscarFuncionesPorTitulo(query);
+      setFunciones(resultados);
+    }
   };
 
-  useEffect(() =>{
-    setCompraBody({...compraBody, funcionId: funcion.id})
-  }, [funcion])
+  const cargarFunciones = async () => {
+    const funciones = await getAllFunciones();
+    setFunciones(funciones);
+  };
 
   useEffect(() => {
-    const fetchFunciones = async () => {
-      const f = await getAllFunciones();
-      setFunciones(f);
-    };
-    fetchFunciones();
+    cargarFunciones();
   }, []);
 
   return (
     <div className="funciones-content">
       <BusquedaFunciones
-        useSearchTitle={useSearchTitle}
+        setFunciones={setFunciones}
+        useSearchTitle={busquedaActiva}
         openCalendario={openCalendario}
         setOpenCalendario={setOpenCalendario}
-        closeCalendar={closeCalendar}
-        activeSearch={activeSearch}
-        handleSubmit={handleSubmit}
-        handleChangeTitle={handleChangeTitle}
+        closeCalendar={() => setOpenCalendario(false)}
+        activeSearch={() => setBusquedaActiva(!busquedaActiva)}
+        handleSubmit={(e) => e.preventDefault()}
+        handleChangeTitle={handleBuscarPorTitulo}
       />
+
       <table className="funciones-table">
         <thead>
           <tr>
-            <th>TITULO</th>
+            <th>TÍTULO</th>
             <th>
-              FECHA Y <br /> HORA
+              FECHA <br /> Y HORA
             </th>
             <th>
-              LUGARES <br />
-              DISPONIBLES
+              LUGARES <br /> DISPONIBLES
             </th>
           </tr>
         </thead>
         <tbody className="funciones-tbody">
-          {funciones?.map((funcion, index) => (
+          {funciones?.map((f, index) => (
             <tr
-              key={funcion.id}
-              className={`funcion ${index % 2 === 0 ? "even" : "odd"}`}
-              onClick={() => esperarFuncion(funcion.id)}
+              key={f.id}
+              className={`funcion ${index % 2 === 0 ? "even" : "odd"} ${
+                f.id === funcion?.id ? "seleccionada" : ""
+              }`}
+              onClick={() => handleSeleccionFuncion(f.id)}
+              tabIndex="0"
             >
-              <td>{funcion.pelicula.titulo}</td>
+              <td>{f.pelicula?.titulo}</td>
               <td>
-                {funcion.fecha} <br /> {funcion.hora}
+                {f.fecha} <br /> {f.hora}
               </td>
-              <td>{funcion.asientosTotales}</td>
+              <td>{f.asientosTotales}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
-}
+};
 
 Funciones.propTypes = {
   funciones: PropTypes.array.isRequired,

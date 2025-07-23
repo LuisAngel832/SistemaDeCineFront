@@ -1,39 +1,84 @@
 import Header from "../../components/Header";
 import MainGestionBoletos from "./MainGestionBoletos";
-import { use, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useCompra from "../../hooks/useCompra";
+import PanleInformacion from "./PanelInformacion";
+
 const GestionBoletos = () => {
-  const [funcionActualizada, setFuncionActualizada] = useState({});
-  const [showPanelInfo, setShowPanelInfo] = useState(false);
   const { registrarCompra } = useCompra();
+
+  const [funcion, setFuncion] = useState({});
+  const [funcionActualizada, setFuncionActualizada] = useState({});
+  const [asientosOcupados, setAsientosOcupados] = useState([]);
+  const [showPanelInfo, setShowPanelInfo] = useState(false);
+  const [compraRealizada, setCompraRealizada] = useState(false);
+
   const [compraBody, setCompraBody] = useState({
     monto: 0,
     funcionId: 0,
     boletos: [],
   });
-  const [asientosOcupados, setAsientosOcupados] = useState([]);
-  const handleClickContinuar = () => {
-    setShowPanelInfo(true);
-  }
 
-  const realizarCompra = async() => {
-    if (compraBody.monto <= 0) {
+  const compraModel = useMemo(() => ({
+    funcion: funcion?.pelicula || {},
+    boletos: compraBody.boletos,
+    horarioFuncion: funcion?.hora || "",
+    montoTotal: compraBody.monto,
+  }), [compraBody, funcion]);
+
+  const validarCompra = () => {
+    return (
+      compraBody.monto > 0 &&
+      compraBody.boletos.length > 0 &&
+      compraBody.funcionId > 0
+    );
+  };
+
+  const handleClickContinuar = () => {
+    if (!validarCompra()) {
+      alert("Por favor, selecciona una función, asientos y verifica el monto.");
       return;
     }
-    if (compraBody.boletos.length <= 0) {
-      return;
+    setShowPanelInfo(true);
+  };
+
+  const handleClickCancelar = () => {
+    setShowPanelInfo(false);
+  };
+
+  const realizarCompra = async () => {
+    if (!validarCompra()) return;
+
+    try {
+      const response = await registrarCompra(compraBody);
+      const boletosOcupados = response.funcion.boletosVendidos.map((b) => b.codigoAsiento);
+      setAsientosOcupados(boletosOcupados);
+      setFuncion(response.funcion); // <-- Actualiza la función con los nuevos boletos vendidos
+      alert("Compra realizada con éxito");
+      setCompraRealizada(prev => !prev);
+      setShowPanelInfo(false);
+    } catch (error) {
+      alert("Hubo un error al realizar la compra.");
+      console.error(error);
     }
-    if (compraBody.funcionId <= 0) {
-      return;
-    }
-    const response = await registrarCompra(compraBody);
-    setAsientosOcupados(response.funcion.boletosVendidos.map((b) => b.codigoAsiento));
   };
 
   return (
     <div>
-      <Header title="GESTIÓN DE BOLETOS" handleClickBtn1={handleClickContinuar} />
+      {showPanelInfo && (
+        <PanleInformacion
+          datos={compraModel}
+          onClickCancelar={handleClickCancelar}
+          onClickContinuar={realizarCompra}
+        />
+      )}
+      <Header
+        title="GESTIÓN DE BOLETOS"
+        handleClickBtn1={handleClickContinuar}
+      />
       <MainGestionBoletos
+        funcion={funcion}
+        setFuncion={setFuncion}
         setFuncionActualizada={setFuncionActualizada}
         funcionActualizada={funcionActualizada}
         compraBody={compraBody}
@@ -42,6 +87,7 @@ const GestionBoletos = () => {
         setAsientosOcupados={setAsientosOcupados}
         showPanelInfo={showPanelInfo}
         setShowPanelInfo={setShowPanelInfo}
+        compraRealizada={compraRealizada}
       />
     </div>
   );
