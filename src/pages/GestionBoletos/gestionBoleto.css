@@ -253,32 +253,5 @@
     font-weight: bold;
 }
 
-.panel-info-buttons {
-    width: 100%;
-    height: 20%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 20px;
-    -ms-flex-align: end;
-}
 
-.panel-info-buttons button {
-    width: 30%;
-    height: 50%;
-    background-color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: white;
-    transition: background-color 0.3s ease;
-}
 
-.panel-info-buttons .cancelar {
-    background-color: #420033;
-}
-
-.panel-info-buttons .continuar {
-    background-color: #262C3B;
-}

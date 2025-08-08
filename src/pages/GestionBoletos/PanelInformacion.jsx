@@ -1,5 +1,6 @@
 import "./gestionBoleto.css";
 import PropTypes from "prop-types";
+import Buttons from "../../components/Buttons";
 
 const PanelInformacion = ({ datos, onClickCancelar, onClickContinuar }) => {
     const InfoLine = ({ label, value }) => (
@@ -17,10 +18,7 @@ const PanelInformacion = ({ datos, onClickCancelar, onClickContinuar }) => {
                 <InfoLine label="Asientos" value={datos.boletos.join(", ")} />
                 <InfoLine label="Horario" value={datos.horarioFuncion} />
                 <InfoLine label="Total de la compra" value={`$${datos.montoTotal}`} />
-                <div className="panel-info-buttons">
-                    <button className="cancelar" onClick={onClickCancelar}>Cancelar</button>
-                    <button className="continuar" onClick={onClickContinuar}>Confirmar</button>
-                </div>
+                <Buttons onClickCancelar={onClickCancelar} onClickContinuar={onClickContinuar}/>
             </div>
         </div>
     );
