@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Header from "../../components/Header";
 import usePelicula from "../../hooks/usePelicula";
+import Calendario from "../../components/Calendario/Calendario";
 
 const MainRegistrarFuncion = () => {
     const {getPeliculas} = usePelicula();
@@ -16,6 +17,8 @@ const MainRegistrarFuncion = () => {
         }
         fetchPeliculas();
     }, [getPeliculas]);
+
+
     return (
         <div className="main-registrar-funcion">
             <Header title="Registrar Funcion" />
@@ -27,6 +30,11 @@ const MainRegistrarFuncion = () => {
                             <option value="0">Selecciona una pelicula</option>
                             <option  value="accion">aqui va la pelicula</option>
                         </select>
+                    </div>
+
+                    <div>
+                        <label>Fecha</label>
+                        <Calendario  X={0} Y={0}/>
                     </div>
                 </form>
             </div>

@@ -8,4 +8,4 @@ const MenuPrincipal = () =>{
     )
 }
 
-export default MenuPrincipal
+export default MenuPrincipal//preguntar sobre index y routes, si no se crea alguna inconveniente

@@ -1,7 +1,7 @@
 import { useState, useEffect, use } from "react";
 import "../assets/css/calendario.css";
-import useFunciones from "../hooks/useFunciones";
-const Calendario = ({ closeCalendario, setFunciones }) => {
+import useFunciones from "../../hooks/useFunciones";
+const Calendario = ({ closeCalendario, setFunciones, X, Y}) => {
   const diasDeLaSemana = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"];
 
   const [mesSeleccionado, setMesSeleccionado] = useState(new Date().getMonth());
@@ -39,7 +39,7 @@ const Calendario = ({ closeCalendario, setFunciones }) => {
   const meses = obtenerMeses();
 
   return (
-    <div className="calendario">
+    <div className="calendario" style={{ transform: closeCalendario ? `translateX(${X})` : `translateY(${Y})` }}>
       <div className="mes">
         <select
           value={mesSeleccionado}
