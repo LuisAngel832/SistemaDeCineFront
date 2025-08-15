@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
-import HeaderSeleccionDeAsientos from "./HeaderSeleccionAsientos";
-import pantalla from "../../assets/img/pantalla.png";
-import asiento from "../../assets/img/asiento.png"; 
-import asientoOcupado from "../../assets/img/asientoOcupado.png";
-import asientoSeleccionado from "../../assets/img/asientoSeleccionado.png";
+import HeaderSeleccionDeAsientos from "./../Components/HeaderSeleccionAsientos";
+import pantalla from "../../../assets/img/pantalla.png";
+import asiento from "../../../assets/img/asiento.png"; 
+import asientoOcupado from "../../../assets/img/asientoOcupado.png";
+import asientoSeleccionado from "../../../assets/img/asientoSeleccionado.png";
 
 const SeleccionDeAsientos = ({
   funcion,

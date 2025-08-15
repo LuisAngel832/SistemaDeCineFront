@@ -1,0 +1,62 @@
+.main-registrar-funcion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 80px); /* Adjust for header height */
+}   
+
+.registrar-funcion-content {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #134767;
+    width: 65%;
+    height: 60vh;
+    border-radius: 20px;
+}
+
+.registrar-funcion-content form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registrar-funcion-content form .input-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.registrar-funcion-content form  .fecha{
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+
+
+.registrar-funcion-content form .input-content label {
+    width: 30%;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.registrar-funcion-content form .input-content input, .registrar-funcion-content form .input-content select {
+    width: 65%;
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    border: none;
+    margin: 0;
+}
+
+.calendario-icon{
+    display: inline;
+    cursor: pointer;
+    width: 30px;
+}

@@ -31,7 +31,6 @@ const usePelicula = (initialState) => {
             if (!response.ok) {
                 throw new Error("Error al obtener las peliculas");
             }
-            console.log("Peliculas obtenidas exitosamente:", response.json);
             return await response.json();
         } catch (error) {
             console.error("Error al obtener las peliculas:", error);

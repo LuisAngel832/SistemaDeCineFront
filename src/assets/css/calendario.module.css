@@ -1,52 +1,52 @@
-.calendario{
+.calendario {
     position: absolute;
     width: 500px;
     height: 400px;
     display: grid;
-    grid-template-rows: 10% 20% 70%;
+    grid-template-rows: 15% 15% 70%;
     z-index: 10;
     background-color: #005E7C;
     align-items: center;
-    transform: translateX(45%) translateY(56%);
-    
+    border-radius: 10px;
 }
 
-.mes{
+/* Contenedor de mes y año */
+.mes {
     display: flex;
     justify-content: start;
     margin-left: 10px;
-    height: 80%;
+    height: 100%;
     background-color: transparent;
     border-radius: 5px;
 }
 
-.mes select{
-    cursor: pointer ;
-    width: 100%;
+.mesSelect {
+    cursor: pointer;
+    width: 100% !important;
     height: 100%;
     background-color: transparent;
-    border: none;
+    border: none !important;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
 }
 
-.mes select option{
+.mesOption {
     background-color: #005E7C;
 }
 
-.calendario .diasSemana{
+/* Días de la semana */
+.diasSemana {
     width: 100%;
     height: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 1fr;
     margin: 0;
     padding: 0;
     justify-items: center;
     gap: 5px;
 }
 
-.dia{
+.diaSemana {
     background-color: #80AFBE;
     width: 50px;
     height: 50px;
@@ -55,12 +55,8 @@
     box-sizing: border-box;
 }
 
-.calendario .diasSemana .dia{
-    
-    background-color: #609AAD;
-}
-
-.calendario .dias{
+/* Días del mes */
+.dias {
     width: 100%;
     height: 100%;
     display: grid;
@@ -75,11 +71,7 @@
     cursor: pointer;
 }
 
-.calendario .dias .dia:hover{
-    border: 2px solid white;
-}
-
-.calendario .dias .dia{
+.dia {
     background-color: #005E7C;
     width: 50px;
     height: 50px;
@@ -92,3 +84,10 @@
     color: white;
 }
 
+.dia:hover {
+    border: 2px solid white;
+}
+
+.diaEnSemana {
+    background-color: #609AAD;
+}

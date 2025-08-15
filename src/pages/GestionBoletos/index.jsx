@@ -1,8 +1,9 @@
 import Header from "../../components/Header";
-import MainGestionBoletos from "./MainGestionBoletos";
-import { useEffect, useMemo, useState } from "react";
+import Funciones from "./Components/Funciones";
+import SeleccionDeAsientos from "./Components/SeleccionDeAsientos";
+import { use, useEffect, useMemo, useState } from "react";
 import useCompra from "../../hooks/useCompra";
-import PanleInformacion from "./PanelInformacion";
+import PanleInformacion from "./Components/PanelInformacion";
 
 const GestionBoletos = () => {
   const { registrarCompra } = useCompra();
@@ -12,6 +13,7 @@ const GestionBoletos = () => {
   const [asientosOcupados, setAsientosOcupados] = useState([]);
   const [showPanelInfo, setShowPanelInfo] = useState(false);
   const [compraRealizada, setCompraRealizada] = useState(false);
+   const [funciones, setFunciones] = useState([]);
 
   const [compraBody, setCompraBody] = useState({
     monto: 0,
@@ -19,12 +21,15 @@ const GestionBoletos = () => {
     boletos: [],
   });
 
-  const compraModel = useMemo(() => ({
-    funcion: funcion?.pelicula || {},
-    boletos: compraBody.boletos,
-    horarioFuncion: funcion?.hora || "",
-    montoTotal: compraBody.monto,
-  }), [compraBody, funcion]);
+const compraModel = useMemo(() => ({
+  funcion: {
+    titulo: funcion?.pelicula?.titulo || "",
+  },
+  boletos: compraBody.boletos || [],
+  horarioFuncion: funcion?.hora || "",
+  montoTotal: compraBody.monto || 0,
+}), [compraBody, funcion]);
+
 
   const validarCompra = () => {
     return (
@@ -63,6 +68,9 @@ const GestionBoletos = () => {
     }
   };
 
+
+
+
   return (
     <div>
       {showPanelInfo && (
@@ -76,19 +84,26 @@ const GestionBoletos = () => {
         title="GESTIÓN DE BOLETOS"
         handleClickBtn1={handleClickContinuar}
       />
-      <MainGestionBoletos
-        funcion={funcion}
-        setFuncion={setFuncion}
-        setFuncionActualizada={setFuncionActualizada}
-        funcionActualizada={funcionActualizada}
-        compraBody={compraBody}
-        setCompraBody={setCompraBody}
-        asientosOcupados={asientosOcupados}
-        setAsientosOcupados={setAsientosOcupados}
-        showPanelInfo={showPanelInfo}
-        setShowPanelInfo={setShowPanelInfo}
-        compraRealizada={compraRealizada}
-      />
+      <div className="main-gestion-boletos">
+        <Funciones
+          funcion={funcion}
+          funciones={funciones}
+          setFunciones={setFunciones}
+          setFuncion={setFuncion}
+          setFuncionActualizada={setFuncionActualizada}
+          setCompraBody={setCompraBody}
+          compraBody={compraBody}
+        />
+
+        <SeleccionDeAsientos
+          funcion={funcion}
+          compraBody={compraBody}
+          setCompraBody={setCompraBody}
+          asientosOcupados={asientosOcupados}
+          setAsientosOcupados={setAsientosOcupados}
+          compraRealizada={compraRealizada}
+        />
+      </div>
     </div>
   );
 };

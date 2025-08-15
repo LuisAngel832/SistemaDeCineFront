@@ -1,6 +1,6 @@
-import "./gestionBoleto.css";
+import "./../Styles/gestionBoleto.css";
 import PropTypes from "prop-types";
-import Buttons from "../../components/Buttons";
+import Buttons from "../../../components/Buttons";
 
 const PanelInformacion = ({ datos, onClickCancelar, onClickContinuar }) => {
     const InfoLine = ({ label, value }) => (
@@ -14,11 +14,14 @@ const PanelInformacion = ({ datos, onClickCancelar, onClickContinuar }) => {
         <div className="panel-info">
             <div className="panel-info-content">
                 <h2>Información de la Compra</h2>
-                <InfoLine label="Película" value={datos.funcion.titulo} />
-                <InfoLine label="Asientos" value={datos.boletos.join(", ")} />
-                <InfoLine label="Horario" value={datos.horarioFuncion} />
-                <InfoLine label="Total de la compra" value={`$${datos.montoTotal}`} />
-                <Buttons onClickCancelar={onClickCancelar} onClickContinuar={onClickContinuar}/>
+                {datos ? (
+                    <> <InfoLine label="Película" value={datos.funcion.titulo} />
+                        <InfoLine label="Asientos" value={datos.boletos.join(", ")} />
+                        <InfoLine label="Horario" value={datos.horarioFuncion} />
+                        <InfoLine label="Total de la compra" value={`$${datos.montoTotal}`} />
+                    </>
+                ) : (<p>Cargando información...</p>)}
+                <Buttons onClickCancelar={onClickCancelar} onClickContinuar={onClickContinuar} />
             </div>
         </div>
     );

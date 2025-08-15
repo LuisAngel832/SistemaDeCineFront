@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useFunciones from "../../hooks/useFunciones";
+import useFunciones from "../../../hooks/useFunciones";
 import PropTypes from "prop-types";
 import BusquedaFunciones from "./BusquedaFunciones";
 

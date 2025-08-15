@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom"
-import  MenuPrincipal  from "../pages/MenuPrincipal/MenuPrincipal"
-import GestionBoletos from "../pages/GestionBoletos/GestionBoletos"
-import RegistrarFuncion from "../pages/RegistrarFunciones/RegistrarFuncion"
-import RegistrarPelicula from "../pages/RegistrarPelicula/RegistrarPelicula"    
+import  MenuPrincipal  from "../pages/MenuPrincipal/"
+import GestionBoletos from "../pages/GestionBoletos/"
+import RegistrarFuncion from "../pages/RegistrarFunciones"
+import RegistrarPelicula from "../pages/RegistrarPelicula/"    
     
 const AppRouter = () => {
     return(
