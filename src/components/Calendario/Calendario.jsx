@@ -1,8 +1,7 @@
 import { useState, useEffect, use } from "react";
-import calendarioStyle from "../../assets/css/calendario.module.css";;
+import calendarioStyle from "../../assets/css/calendario.module.css";
 
-
-const Calendario = ({ setFecha, X, Y}) => {
+const Calendario = ({ setFecha, setIsOpen, X, Y }) => {
   const diasDeLaSemana = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"];
 
   const [mesSeleccionado, setMesSeleccionado] = useState(new Date().getMonth());
@@ -27,8 +26,8 @@ const Calendario = ({ setFecha, X, Y}) => {
   };
 
   const seleccionarFecha = async (dia) => {
-    setFecha(  new Date(anioSeleccionado, mesSeleccionado, dia));
-    
+    setFecha(new Date(anioSeleccionado, mesSeleccionado, dia));
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -38,54 +37,66 @@ const Calendario = ({ setFecha, X, Y}) => {
   const meses = obtenerMeses();
 
   return (
-  <div
-    className={calendarioStyle.calendario}
-    style={{ transform: `translateX(${X}px) translateY(${Y}px)` }}
-  >
-    <div className={calendarioStyle.mes}>
-      <select
-        className={calendarioStyle.mesSelect}
-        value={mesSeleccionado}
-        onChange={(e) => setMesSeleccionado(Number(e.target.value))}
-      >
-        {meses.map((mes, index) => (
-          <option key={index} value={index} className={calendarioStyle.mesOption}>
-            {mes}
-          </option>
-        ))}
-      </select>
-
-      <select
-        className={calendarioStyle.mesSelect}
-        value={anioSeleccionado}
-        onChange={(e) => setAnioSeleccionado(Number(e.target.value))}
-      >
-        {Array.from({ length: 5 }, (_, i) => anioSeleccionado - 2 + i).map(
-          (anio) => (
-            <option key={anio} value={anio} className={calendarioStyle.mesOption}>
-              {anio}
+    <div
+      className={calendarioStyle.calendario}
+      style={{ transform: `translateX(${X}px) translateY(${Y}px)` }}
+    >
+      <div className={calendarioStyle.mes}>
+        <select
+          className={calendarioStyle.mesSelect}
+          value={mesSeleccionado}
+          onChange={(e) => setMesSeleccionado(Number(e.target.value))}
+        >
+          {meses.map((mes, index) => (
+            <option
+              key={index}
+              value={index}
+              className={calendarioStyle.mesOption}
+            >
+              {mes}
             </option>
-          )
-        )}
-      </select>
-    </div>
+          ))}
+        </select>
 
-    <div className={calendarioStyle.diasSemana}>
-      {diasDeLaSemana.map((dia, index) => (
-        <div key={index} className={`${calendarioStyle.diaSemana} ${calendarioStyle.dia}`}>
-          <p>{dia}</p>
-        </div>
-      ))}
-    </div>
+        <select
+          className={calendarioStyle.mesSelect}
+          value={anioSeleccionado}
+          onChange={(e) => setAnioSeleccionado(Number(e.target.value))}
+        >
+          {Array.from({ length: 5 }, (_, i) => anioSeleccionado - 2 + i).map(
+            (anio) => (
+              <option
+                key={anio}
+                value={anio}
+                className={calendarioStyle.mesOption}
+              >
+                {anio}
+              </option>
+            )
+          )}
+        </select>
+      </div>
 
-    <div className={calendarioStyle.dias}>
-      {diasDelMes.map((dia, index) => (
-        <div key={index} className={calendarioStyle.dia}>
-          <p onClick={() => seleccionarFecha(dia)}>{dia}</p>
-        </div>
-      ))}
+      <div className={calendarioStyle.diasSemana}>
+        {diasDeLaSemana.map((dia, index) => (
+          <div
+            key={index}
+            className={`${calendarioStyle.diaSemana} ${calendarioStyle.dia}`}
+          >
+            <p>{dia}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className={calendarioStyle.dias}>
+        {diasDelMes.map((dia, index) => (
+          <div key={index} className={calendarioStyle.dia}>
+            <p onClick={() => seleccionarFecha(dia)}>{dia}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);}
+  );
+};
 
 export default Calendario;

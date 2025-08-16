@@ -48,6 +48,7 @@ useEffect(() => {
         <Calendario
           X={200}
           Y={230}
+          setIsOpen={setOpenCalendario}
           closeCalendario={closeCalendar}
           setFecha={setFechaSeleccionada}
         />

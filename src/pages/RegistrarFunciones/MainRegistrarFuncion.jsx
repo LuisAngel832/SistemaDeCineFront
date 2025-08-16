@@ -6,8 +6,13 @@ import { Calendar } from "lucide-react";
 
 const MainRegistrarFuncion = () => {
     const {getPeliculas} = usePelicula();
-    const [peliculas, setPeliculas] = useState([]);
     const [calendarioOpen, setCalendarioOpen] = useState(false);
+
+    const [peliculas, setPeliculas] = useState([]);
+    const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
+    const [horaSeleccionada, setHoraSeleccionada] = useState(null);
+    const [ṕrecioBoleto, setPrecioBoleto] = useState(0);
+    const [asientosTotales, setAsientosTotales] = useState(0);
 
     useEffect(() => {
         const fetchPeliculas = async () => {
@@ -24,6 +29,11 @@ const MainRegistrarFuncion = () => {
         }
         fetchPeliculas();
     }, [getPeliculas]);
+
+
+ useEffect(() => {
+    console.log("Hora seleccionada:", horaSeleccionada);
+  }, [ horaSeleccionada]);
 
     const handleCalendarClick = (event) => {
         event.stopPropagation();
@@ -49,20 +59,20 @@ const MainRegistrarFuncion = () => {
                     <div className="input-content fecha"  >
                         <label>Fecha</label>
                         <Calendar onClick={handleCalendarClick}  className="calendario-icon"/>
-                        {calendarioOpen &&  <Calendario X={200} Y={230}/>}
+                        {calendarioOpen &&  <Calendario X={200} Y={230} setFecha={setFechaSeleccionada} setIsOpen={setCalendarioOpen}/>}
                     </div>
 
                     <div className="input-content">
                         <label htmlFor="hora">Hora</label>
-                        <input type="time" id="hora" name="hora" />
+                        <input type="time" id="hora" name="hora" onChange={(e) => setHoraSeleccionada(e.target.value)}/>
                     </div>
                     <div className="input-content">
                         <label htmlFor="precioBoleto">Precio Boleto</label>
-                        <input type="number"  />
+                        <input type="number" max={10000} min={10} />
                     </div>
                     <div className="input-content">
                         <label htmlFor="asientosTotales">Asientos Totales</label>
-                        <input type="number" />
+                        <input type="number" max={100} min={10} />
                     </div>
                 </form>
             </div>
