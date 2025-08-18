@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import usePelicula from "../../hooks/usePelicula";
 import Calendario from "../../components/Calendario/Calendario";
 
 import { Calendar } from "lucide-react";
+import { func } from "prop-types";
 
-const MainRegistrarFuncion = () => {
-    const {getPeliculas} = usePelicula();
+const MainRegistrarFuncion = ({ funcion, setFuncion }) => {
+    const { getPeliculas } = usePelicula();
     const [calendarioOpen, setCalendarioOpen] = useState(false);
-
     const [peliculas, setPeliculas] = useState([]);
-    const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
-    const [horaSeleccionada, setHoraSeleccionada] = useState(null);
-    const [ṕrecioBoleto, setPrecioBoleto] = useState(0);
-    const [asientosTotales, setAsientosTotales] = useState(0);
+
+
+
 
     useEffect(() => {
         const fetchPeliculas = async () => {
@@ -31,9 +30,9 @@ const MainRegistrarFuncion = () => {
     }, [getPeliculas]);
 
 
- useEffect(() => {
-    console.log("Hora seleccionada:", horaSeleccionada);
-  }, [ horaSeleccionada]);
+    useEffect(() => {
+        console.log("Funcion actualizada:", funcion);
+    }, [funcion]);
 
     const handleCalendarClick = (event) => {
         event.stopPropagation();
@@ -46,7 +45,18 @@ const MainRegistrarFuncion = () => {
                 <form>
                     <div className="input-content">
                         <label htmlFor="pelicula">Pelicula</label>
-                        <select name="" id="genero">
+                        <select
+                            id="pelicula"
+                            value={funcion.pelicula || "0"}
+                            onChange={(e) => {
+                                const idSeleccionado = e.target.value;
+
+                                setFuncion((prev) => ({
+                                    ...prev,
+                                    pelicula: idSeleccionado || null,
+                                }));
+                            }}
+                        >
                             <option value="0">Selecciona una pelicula</option>
                             {peliculas.map((pelicula) => (
                                 <option key={pelicula.id} value={pelicula.id}>
@@ -58,21 +68,37 @@ const MainRegistrarFuncion = () => {
 
                     <div className="input-content fecha"  >
                         <label>Fecha</label>
-                        <Calendar onClick={handleCalendarClick}  className="calendario-icon"/>
-                        {calendarioOpen &&  <Calendario X={200} Y={230} setFecha={setFechaSeleccionada} setIsOpen={setCalendarioOpen}/>}
+                        <div className="fecha-content">
+                            <Calendar onClick={handleCalendarClick} className="calendario-icon" />
+                            <p onClick={handleCalendarClick} >
+                                {funcion.fecha
+                                    ? new Intl.DateTimeFormat("es-ES", {
+                                        day: "2-digit",
+                                        month: "2-digit",
+                                        year: "numeric",
+                                    }).format(new Date(funcion.fecha))
+                                    : <></>}
+                            </p>
+
+                        </div>
+                        {calendarioOpen && <Calendario X={200} Y={230} setFecha={(nuevaFecha) => { setFuncion(prev => ({ ...prev, fecha: nuevaFecha })) }} setIsOpen={setCalendarioOpen} />}
                     </div>
 
                     <div className="input-content">
                         <label htmlFor="hora">Hora</label>
-                        <input type="time" id="hora" name="hora" onChange={(e) => setHoraSeleccionada(e.target.value)}/>
+                        <input type="time" id="hora" name="hora" onChange={(e) => setFuncion(prev => ({ ...prev, hora: e.target.value }))} />
                     </div>
                     <div className="input-content">
                         <label htmlFor="precioBoleto">Precio Boleto</label>
-                        <input type="number" max={10000} min={10} />
+                        <input type="number" max={10000} min={10} onChange={(e) => { setFuncion(prev => ({ ...prev, precioBoleto: Number(e.target.value) })) }} />
                     </div>
                     <div className="input-content">
                         <label htmlFor="asientosTotales">Asientos Totales</label>
-                        <input type="number" max={100} min={10} />
+                        <input type="number" max={100} min={10} onChange={(e) => { setFuncion(prev => ({ ...prev, asientosTotales: Number(e.target.value) })) }} />
+                    </div>
+
+                    <div>
+                        <label htmlFor=""></label>
                     </div>
                 </form>
             </div>

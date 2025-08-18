@@ -1,12 +1,24 @@
 import MainRegistrarFuncion from "./MainRegistrarFuncion";
-import "./index.css";  
+import { useState } from "react";
+import "./index.css";
 import Header from "../../components/Header";
 
 const RegistrarFuncion = () => {
-    return(
+    const [funcion, setFuncion] = useState({
+        pelicula: null,
+        fecha: null,
+        hora: null,
+        precioBoleto: 0,
+        asientosTotales: 0,
+    });
+
+
+     
+
+    return (
         <div className="RegistrarFunciones">
             <Header title="Registrar Funcion" />
-            <MainRegistrarFuncion />
+            <MainRegistrarFuncion funcion={funcion} setFuncion={setFuncion} />
         </div>
     )
 }

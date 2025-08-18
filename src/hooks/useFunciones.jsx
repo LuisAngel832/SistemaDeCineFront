@@ -1,7 +1,7 @@
 import js from "@eslint/js";
 
 const useFunciones = () => {
-    const ruta = "http://192.168.100.52:8080/api";
+    const ruta = "http://192.168.100.52:8080/api"
         const getAllFunciones = async () => {
         try {
             const response = await fetch(`${ruta}/funciones`,{
@@ -81,6 +81,25 @@ const useFunciones = () => {
             console.log(error);
         }
     };
+
+    const registrarFuncion = async (funcion) => {
+        try {
+            const response = await fetch(`${ruta}/funciones`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(funcion),
+            });
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
 
     return { getAllFunciones, buscarFuncionesPorFecha, buscarFuncionesPorTitulo, obtenerDetalleFuncion,actualizarFuncion };
 };

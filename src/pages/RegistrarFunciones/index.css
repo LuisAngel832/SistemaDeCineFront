@@ -2,8 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 80px); /* Adjust for header height */
-}   
+    height: calc(100vh - 80px);
+    /* Adjust for header height */
+}
 
 .registrar-funcion-content {
     margin-top: 20px;
@@ -31,14 +32,11 @@
     margin: 20px;
 }
 
-.registrar-funcion-content form  .fecha{
+.registrar-funcion-content form .fecha {
     justify-content: space-between;
     align-items: center;
 
 }
-
-
-
 
 .registrar-funcion-content form .input-content label {
     width: 30%;
@@ -46,7 +44,25 @@
     font-weight: 600;
 }
 
-.registrar-funcion-content form .input-content input, .registrar-funcion-content form .input-content select {
+.registrar-funcion-content form .input-content .fecha-content {
+    display: flex;
+    width: 67%;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.registrar-funcion-content form .input-content .fecha-content p {
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+
+}
+
+.registrar-funcion-content form .input-content input,
+.registrar-funcion-content form .input-content select {
     width: 65%;
     padding: 10px;
     font-size: 1.5rem;
@@ -55,7 +71,7 @@
     margin: 0;
 }
 
-.calendario-icon{
+.calendario-icon {
     display: inline;
     cursor: pointer;
     width: 30px;
